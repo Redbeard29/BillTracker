@@ -36,15 +36,30 @@ print(total, (total_biweekly_entry * 4))
 #transfer bill money for the two week period, you have to write to the audit log how much you entered, and if it doesn't match
 #what's expected, where the over/under is coming from. 
 
-total_entered = input("How much did you transfer for this two week period?:\n")
-print(f"You entered {total_entered}")
+total_entered = round(float(input("How much did you transfer for this two week period?:\n")), 2)
+print(f"You entered ${total_entered:.2f}")
 
 if not total_entered == total_biweekly_entry:
+
     if total_entered > total_biweekly_entry:
-        reason = input("Why did you enter more than the allotted amount?\n")
-        print(f"You entered {reason}")
+        
+        difference = total_entered - total_biweekly_entry
+
+        print(f"You entered ${total_entered:.2f}, which is ${difference:.2f} more than expected. How many extra transactions are you accounting for?")
+        num_of_trans = int(input())
+        for trans in range(num_of_trans):
+            reason = input(f"Transaction {trans + 1}:\n")    
+            cost = round(float(input("How much?\n")), 2)
+            print(f"Entered ${cost:.2f} for {reason}")
     else:
-        reason = input("Why did you enter less than the allotted amount?\n")
-        print(f"You entered {reason}")
+
+        difference = total_biweekly_entry - total_entered
+
+        print(f"You entered ${total_entered:.2f}, which is ${difference:.2f} less than expected. How many transactions do you want to identify as not needed?")
+        num_of_trans = int(input())
+        for trans in range(num_of_trans):
+            reason = input(f"Transaction {trans + 1}:\n")    
+            cost = round(float(input("How much?\n")), 2)
+            print(f"Subtracted ${cost:.2f} from total for {reason}")
 else:
-    print("You entered exactly what was expected.")
+    print(f"${total_entered:.2f} is exactly what was expected for this period.")
