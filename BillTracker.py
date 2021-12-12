@@ -37,6 +37,7 @@ print(total, (total_biweekly_entry * 4))
 #what's expected, where the over/under is coming from. 
 
 total_entered = round(float(input("How much did you transfer for this two week period?:\n")), 2)
+acceptable_answers = ["Y", "N"]
 
 if not total_entered == total_biweekly_entry:
 
@@ -51,14 +52,12 @@ if not total_entered == total_biweekly_entry:
             cost = round(float(input("How much?\n")), 2)
             print(f"Entered ${cost:.2f} for {reason}")
 
-            #Need to fix this to account for entry of 'N'
             create_note = input("Enter associated notes? Y/N\n").upper()
             
-            while(create_note != "Y"):
+            while(create_note not in acceptable_answers):
                 create_note = input("Invalid entry. Please enter Y or N.\n").upper()
-                print(create_note == "Y")
 
-            if create_note.upper() == "Y":
+            if create_note.upper() == acceptable_answers[0]:
                 note = input(f"Notes for ${cost:.2f} {reason}:\n")
                 print(f'"{note}" stored as notes for {reason}')
     else:
@@ -72,14 +71,13 @@ if not total_entered == total_biweekly_entry:
             cost = round(float(input("How much?\n")), 2)
             print(f"Subtracted ${cost:.2f} from total for {reason}")
 
-            #Need to fix this to account for entry of 'N'
             create_note = input("Enter associated notes? Y/N\n").upper()
             
-            while(create_note != "Y"):
+            while(create_note not in acceptable_answers):
                 create_note = input("Invalid entry. Please enter Y or N.\n").upper()
                 print(create_note == "Y")
 
-            if create_note.upper() == "Y":
+            if create_note.upper() == acceptable_answers[0]:
                 note = input(f"Notes for ${cost:.2f} {reason}:\n")
                 print(f'"{note}" stored as notes for {reason}')
 else:
