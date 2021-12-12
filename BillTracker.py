@@ -37,7 +37,6 @@ print(total, (total_biweekly_entry * 4))
 #what's expected, where the over/under is coming from. 
 
 total_entered = round(float(input("How much did you transfer for this two week period?:\n")), 2)
-print(f"You entered ${total_entered:.2f}")
 
 if not total_entered == total_biweekly_entry:
 
@@ -51,6 +50,17 @@ if not total_entered == total_biweekly_entry:
             reason = input(f"Transaction {trans + 1}:\n")    
             cost = round(float(input("How much?\n")), 2)
             print(f"Entered ${cost:.2f} for {reason}")
+
+            #Need to fix this to account for entry of 'N'
+            create_note = input("Enter associated notes? Y/N\n").upper()
+            
+            while(create_note != "Y"):
+                create_note = input("Invalid entry. Please enter Y or N.\n").upper()
+                print(create_note == "Y")
+
+            if create_note.upper() == "Y":
+                note = input(f"Notes for ${cost:.2f} {reason}:\n")
+                print(f'"{note}" stored as notes for {reason}')
     else:
 
         difference = total_biweekly_entry - total_entered
@@ -61,5 +71,16 @@ if not total_entered == total_biweekly_entry:
             reason = input(f"Transaction {trans + 1}:\n")    
             cost = round(float(input("How much?\n")), 2)
             print(f"Subtracted ${cost:.2f} from total for {reason}")
+
+            #Need to fix this to account for entry of 'N'
+            create_note = input("Enter associated notes? Y/N\n").upper()
+            
+            while(create_note != "Y"):
+                create_note = input("Invalid entry. Please enter Y or N.\n").upper()
+                print(create_note == "Y")
+
+            if create_note.upper() == "Y":
+                note = input(f"Notes for ${cost:.2f} {reason}:\n")
+                print(f'"{note}" stored as notes for {reason}')
 else:
-    print(f"${total_entered:.2f} is exactly what was expected for this period.")
+    print(f"You entered ${total_entered:.2f}, which is exactly what was expected for this period.")
