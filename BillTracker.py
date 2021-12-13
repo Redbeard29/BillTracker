@@ -23,13 +23,14 @@ bills = {
     'groceries' : 500.00
 }
 
+total_monthly_bills = total_biweekly_entry * 4
 total = 0
 
 for key, val in bills.items():
     total += bills[key]
     total = round(total, 2)
 
-print(total, (total_biweekly_entry * 4))
+print(f"${total:.2f}", f"${total_monthly_bills:.2f}")
 
 #Goal is to create a billing audit log, so that I can see where potential discrepancies in money transferred/money spent occur
 #Download CSV files from bank site and compare money entered and taken out to what is in this list of costs. Every time you
@@ -53,6 +54,9 @@ def valid_num_times(times):
         return True
 
 total_entered = input("How much did you transfer for this two week period?:\n")
+
+#account for user entering $num instead of just num
+total_entered = total_entered.replace("$", "")
 
 while not is_valid_input(total_entered):
     total_entered = input("Invalid entry. You must enter a number.\n")
@@ -78,6 +82,9 @@ if not total_entered == total_biweekly_entry:
             reason = input(f"Transaction {trans + 1}:\n")    
 
             cost = input("How much?\n")
+
+            #account for user entering $num instead of just num
+            cost = cost.replace("$", "")
 
             while not is_valid_input(cost):
                 cost = input("Invalid entry. You must enter a number.\n")
@@ -109,6 +116,9 @@ if not total_entered == total_biweekly_entry:
             reason = input(f"Transaction {trans + 1}:\n")    
 
             cost = input("How much?\n")
+
+            #account for user entering $num instead of just num
+            cost = cost.replace("$", "")
 
             while not is_valid_input(cost):
                 cost = input("Invalid entry. You must enter a number.\n")
