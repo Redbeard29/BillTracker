@@ -66,6 +66,8 @@ acceptable_answers = ["N", "Y"]
 
 if not total_entered == total_biweekly_entry:
 
+    sum_of_trans = 0 
+
     if total_entered > total_biweekly_entry:
         
         difference = total_entered - total_biweekly_entry
@@ -91,6 +93,8 @@ if not total_entered == total_biweekly_entry:
 
             cost = round(float(cost), 2)
             print(f"Entered ${cost:.2f} for {reason}")
+            
+            sum_of_trans += cost
 
             create_note = input("Enter associated notes? Y/N\n").upper()
             
@@ -100,6 +104,7 @@ if not total_entered == total_biweekly_entry:
             if create_note == acceptable_answers[1]:
                 note = input(f"Notes for ${cost:.2f} {reason}:\n")
                 print(f'"{note}" stored as notes for {reason}')
+
     else:
 
         difference = total_biweekly_entry - total_entered
@@ -113,6 +118,7 @@ if not total_entered == total_biweekly_entry:
         num_of_trans = int(num_of_trans)
 
         for trans in range(num_of_trans):
+
             reason = input(f"Transaction {trans + 1}:\n")    
 
             cost = input("How much?\n")
@@ -127,6 +133,8 @@ if not total_entered == total_biweekly_entry:
 
             print(f"Subtracted ${cost:.2f} from total for {reason}")
 
+            sum_of_trans += cost
+
             create_note = input("Enter associated notes? Y/N\n").upper()
             
             while(create_note not in acceptable_answers):
@@ -135,5 +143,8 @@ if not total_entered == total_biweekly_entry:
             if create_note == acceptable_answers[1]:
                 note = input(f"Notes for ${cost:.2f} {reason}:\n")
                 print(f'"{note}" stored as notes for {reason}')
+               
+    print(f"Sum of {num_of_trans} extra transactions: ${sum_of_trans:.2f}")
+
 else:
     print(f"You entered ${total_entered:.2f}, which is exactly what was expected for this period.")
