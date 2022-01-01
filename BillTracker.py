@@ -141,6 +141,7 @@ if not total_entered == total_biweekly_entry:
         print(f"You entered ${total_entered:.2f}, which is ${difference:.2f} more than expected. How many extra transactions are you accounting for?")
         sum_of_trans, num_of_trans = add_adjustments()
 
+        #this logic should be put inside of a function, and it needs to be adjusted to account for all edge cases
         while sum_of_trans < difference:
             trans_difference = difference - sum_of_trans
             print(f"You entered ${sum_of_trans:.2f}, which is ${trans_difference:.2f} short of ${difference:.2f}. How many more transactions would you like to add to account for this difference?")
@@ -157,6 +158,19 @@ if not total_entered == total_biweekly_entry:
         difference = total_biweekly_entry - total_entered
         print(f"You entered ${total_entered:.2f}, which is ${difference:.2f} less than expected. How many transactions do you want to identify as not needed?")
         sum_of_trans, num_of_trans = add_adjustments()
+
+        #this logic should be put inside of a function, and it needs to be adjusted to account for all edge cases
+        while sum_of_trans < difference:
+            trans_difference = difference - sum_of_trans
+            print(f"You entered ${sum_of_trans:.2f}, which is ${trans_difference:.2f} short of ${difference:.2f}. How many more transactions would you like to add to account for this difference?")
+            sum_of_extra_trans, num_of_extra_trans = add_adjustments()
+            sum_of_trans += sum_of_extra_trans
+            num_of_trans += num_of_extra_trans
+
+        while sum_of_trans > difference:
+            trans_difference = sum_of_trans - difference
+            print(f"You entered ${sum_of_trans:.2f}, which is ${trans_difference:.2f} too much. Please re-enter adjustments in an amount totalling ${difference:.2f}. How many transactions are you accounting for?")
+            sum_of_trans, num_of_trans = add_adjustments()
 
     print(f"Sum of {num_of_trans} extra transactions: ${sum_of_trans:.2f}")
 
